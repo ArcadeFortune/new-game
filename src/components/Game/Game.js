@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import "../styles/Game.css";
-import Player from "./Player";
+import "./Game.css";
+import Player from "../Player/Player";
 
 function Game() {  
   const handleClick = (event) => {
