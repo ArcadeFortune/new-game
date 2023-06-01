@@ -5,3 +5,8 @@
   background-color: blue;
   left: 500px;
 }
+.enemy {
+  position: relative;
+  top: -45%;
+  left: 35%;
+}

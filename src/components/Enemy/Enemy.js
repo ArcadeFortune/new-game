@@ -17,7 +17,8 @@ const Enemy = React.forwardRef((props, ref) => {
       className="blue-square"
       style={{ top: `${topPosition}px` }}
       ref={ref}
-    />
+    ><h1 className='enemy'>Enemy</h1>
+    </div>
   );
 });
 
