@@ -7,6 +7,7 @@ import PauseMenu from "../Menu/PauseMenu";
 function Game() {  
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [paused, setPaused] = useState(false);
+
   const handleClick = (event) => {
     const { clientX, clientY } = event;
     setMousePosition({ x: clientX, y: clientY });
@@ -37,7 +38,7 @@ function Game() {
     return (
       <div className="game" onClick={handleClick}>
         <Enemy />
-        <Player clientX={mousePosition.x} clientY={mousePosition.y} />
+        <Player clickedAt={mousePosition} />
         {paused && <PauseMenu onContinue={handleContinue} onExit={handleExit} />}
       </div>
     );
