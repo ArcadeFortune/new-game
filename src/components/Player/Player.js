@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { movePlayerTowardsTarget } from './playerMovement';
 
-function Player ({ clickedAt }) {  // Create a reference to the player element
+function Player ({ clickedAt, shareCoordinatesIn }) {  // Create a reference to the player element
   const playerRef = useRef(null);
 
   // Create a state variable for the player's position
@@ -16,12 +16,12 @@ function Player ({ clickedAt }) {  // Create a reference to the player element
 
     // Heart of code: move the player towards the target position
     const interval = setInterval(() => {
+      shareCoordinatesIn(position)
       setPosition((prevPosition) => {
         const targetPosition = { x: clickedAt.x - playerWidth / 2, y: clickedAt.y - playerHeight / 2 };
         return movePlayerTowardsTarget(prevPosition, targetPosition, 5);
       });
     }, 10);
-
     // Clean up the interval on unmount
     return () => clearInterval(interval);
   }, [clickedAt]);

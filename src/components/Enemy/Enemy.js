@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Enemy.css';
 
-const Enemy = React.forwardRef((props, ref) => {
-  const [topPosition, setTopPosition] = useState(0);
+function Enemy({shareCoordinatesIn}) {
+  const ref = useRef(null);
+  const [uuid, setUuid] = useState(window.crypto.randomUUID());
+  const [position, setPosition] = useState({ x: 0, y: 110 });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTopPosition((prevPosition) => prevPosition + 10);
+      setPosition({x: position.x, y: position.y + 10});
+      console.log(position.y)
+      shareCoordinatesIn(position)
     }, 1000);
 
     return () => clearInterval(interval);
@@ -15,11 +19,11 @@ const Enemy = React.forwardRef((props, ref) => {
   return (
     <div
       className="blue-square"
-      style={{ top: `${topPosition}px` }}
+      style={{ top: `${position.y}px` }}
       ref={ref}
     ><h1 className='enemy'>Enemy</h1>
     </div>
   );
-});
+};
 
 export default Enemy;

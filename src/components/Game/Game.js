@@ -7,6 +7,7 @@ import PauseMenu from "../Menu/PauseMenu";
 function Game() {  
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [paused, setPaused] = useState(false);
+  const [entityList, setEntityList] = useState({});
 
   const handleClick = (event) => {
     const { clientX, clientY } = event;
@@ -27,6 +28,15 @@ function Game() {
       window.removeEventListener('keydown', handleKeyPress);
     };
   }, []);
+  // Function to store Enemies in a list for collision detection
+  function  storeEnemies(position, uuid) {
+    console.log('position', position)
+  }
+
+  function storeMC(position) {
+    console.log('position', position)
+  }
+  
 
   function handleContinue() {
     setPaused(false);
@@ -37,8 +47,8 @@ function Game() {
   }
     return (
       <div className="game" onClick={handleClick}>
-        <Enemy />
-        <Player clickedAt={mousePosition} />
+        <Enemy shareCoordinatesIn={storeEnemies}/>
+        <Player clickedAt={mousePosition} shareCoordinatesIn={storeMC} />
         {paused && <PauseMenu onContinue={handleContinue} onExit={handleExit} />}
       </div>
     );
