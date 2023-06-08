@@ -16,7 +16,7 @@ function Player ({ clickedAt, shareCoordinatesIn }) {  // Create a reference to 
 
     // Heart of code: move the player towards the target position
     const interval = setInterval(() => {
-      shareCoordinatesIn(position)
+      shareCoordinatesIn(playerRef.current.getBoundingClientRect())
       setPosition((prevPosition) => {
         const targetPosition = { x: clickedAt.x - playerWidth / 2, y: clickedAt.y - playerHeight / 2 };
         return movePlayerTowardsTarget(prevPosition, targetPosition, 5);
