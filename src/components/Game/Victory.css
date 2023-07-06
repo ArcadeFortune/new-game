@@ -1,0 +1,14 @@
+.victory-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 500px;
+  color: black;
+  background-color: transparent;
+  font-size: 48px;
+  text-align: center;
+  line-height: 500px;
+  z-index: 9999;
+}

@@ -6,6 +6,7 @@ import Enemy from "../Enemy/Enemy";
 import PauseMenu from "../Menu/PauseMenu";
 import EnemySpawner from "../Enemy/EnemySpawner";
 import Tutorial from "./Tutorial";
+import Victory from "./Victory";
 
 function Game() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -92,6 +93,7 @@ function Game() {
     <div className="game" onClick={handleClick}>
       {!clicked && <Tutorial />}
       {!died && <Enemy shareCoordinatesIn={storeEnemies} devPos={800}/>}
+      {died && <Victory /> }
       <Player clickedAt={mousePosition} shareCoordinatesIn={storeMC} />
       {paused && <PauseMenu onContinue={handleContinue} onExit={handleExit} />}
     </div>
