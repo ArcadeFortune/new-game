@@ -5,14 +5,17 @@ import Player from "../Player/Player";
 import Enemy from "../Enemy/Enemy";
 import PauseMenu from "../Menu/PauseMenu";
 import EnemySpawner from "../Enemy/EnemySpawner";
+import Tutorial from "./Tutorial";
 
 function Game() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [paused, setPaused] = useState(false);
   const [died, setDied] = useState(false)
+  const [clicked, setClicked] = useState(false);
   const [entityList, setEntityList] = useState([]);
 
   const handleClick = (event) => {
+    setClicked(true);
     const { clientX, clientY } = event;
     setMousePosition({ x: clientX, y: clientY });
   };
@@ -87,6 +90,7 @@ function Game() {
   }
   return (
     <div className="game" onClick={handleClick}>
+      {!clicked && <Tutorial />}
       {!died && <Enemy shareCoordinatesIn={storeEnemies} devPos={800}/>}
       <Player clickedAt={mousePosition} shareCoordinatesIn={storeMC} />
       {paused && <PauseMenu onContinue={handleContinue} onExit={handleExit} />}
