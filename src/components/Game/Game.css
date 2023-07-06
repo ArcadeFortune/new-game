@@ -1,5 +1,9 @@
 .game {
-  width: 10000px;
-  height: 10000px;
+  /* width: 10000px;
+  height: 10000px; */
+  
+  position: relative;
+  height: 100vh;
+  display: flex;
   background-color: darkgray;
 }

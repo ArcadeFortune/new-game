@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./Game.css";
+
 import Player from "../Player/Player";
 import Enemy from "../Enemy/Enemy";
 import PauseMenu from "../Menu/PauseMenu";
-import { type } from "@testing-library/user-event/dist/type";
+import EnemySpawner from "../Enemy/EnemySpawner";
 
 function Game() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [paused, setPaused] = useState(false);
+  const [died, setDied] = useState(false)
   const [entityList, setEntityList] = useState([]);
 
   const handleClick = (event) => {
@@ -19,6 +21,8 @@ function Game() {
   useEffect(() => {
     function handleKeyPress(event) {
       if (event.key === "Escape") {
+        console.log(<Enemy shareCoordinatesIn={storeEnemies} />)
+        EnemySpawner(storeEnemies)
         setPaused(true);
       }
     }
@@ -48,18 +52,22 @@ function Game() {
       for (let e of Object.values(li)) {
         // console.log(e)
         if (
-          position.x < e.x + e.width &&
-          position.x + position.width > e.x &&
-          position.y < e.y + e.height &&
-          position.y + position.height > e.y
+        position.x < e.x + e.width &&
+        position.x + position.width > e.x &&
+        position.y < e.y + e.height &&
+        position.y + position.height > e.y
         ) {
           // The divs are touching
-          console.log("ASJD:ALKSDJA:SLDJA:SL");
+          deleteEnemy(parseInt(Object.keys(li)[0]));
+          setDied(true)
         } else {
           // The divs are not touching
           // console.log("-------------", position.x, e.x);
         }
       }
+    }
+    function deleteEnemy(id) {
+      setEntityList(entityList.filter(obj => Object.keys(obj)[0] !== id.toString()));
     }
 
     if (Object.values(entityList).length !== 0) {
@@ -68,7 +76,6 @@ function Game() {
       // console.log(Object.values(entityList))
       // 
     }
-
   }
 
   function handleContinue() {
@@ -80,8 +87,7 @@ function Game() {
   }
   return (
     <div className="game" onClick={handleClick}>
-      <Enemy shareCoordinatesIn={storeEnemies} />
-      <Enemy shareCoordinatesIn={storeEnemies} devPos={240}/>
+      {!died && <Enemy shareCoordinatesIn={storeEnemies} devPos={800}/>}
       <Player clickedAt={mousePosition} shareCoordinatesIn={storeMC} />
       {paused && <PauseMenu onContinue={handleContinue} onExit={handleExit} />}
     </div>
@@ -89,5 +95,3 @@ function Game() {
 }
 
 export default Game;
-
-// why first div not in entityList
